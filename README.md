@@ -69,11 +69,13 @@ This project implements a machine learning pipeline that automatically detects a
 
 1. **Clone the repository**
    ```bash
-   git clone <repository-url>
-   cd iac-anomaly-detection_v.1
+   git clone -b stable-v1 https://github.com/Shibly6/IaC-Anomaly-Detection.git
+   cd IaC-Anomaly-Detection
    ```
 
 2. **Create and activate a Python 3.10 virtual environment**
+
+> ⚠️ **Requirement Note:** Make sure Python 3.10.x is installed and that it is added to your system **PATH**.
 
    **Windows (PowerShell):**
    ```powershell
