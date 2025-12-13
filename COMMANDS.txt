@@ -1,0 +1,201 @@
+╔════════════════════════════════════════════════════════════════╗
+║           COMPLETE COMMAND REFERENCE                           ║
+║     Clean → Train → Analyze Custom Terraform Files            ║
+╚════════════════════════════════════════════════════════════════╝
+
+═══════════════════════════════════════════════════════════════════
+ METHOD 1: AUTOMATED (RECOMMENDED) ⚡
+═══════════════════════════════════════════════════════════════════
+
+One command does everything:
+
+    ./run_complete_workflow.sh /path/to/your/terraform/folder/
+
+Example:
+    ./run_complete_workflow.sh ~/projects/infrastructure/terraform/
+
+This automatically:
+  1. Cleans old training data
+  2. Trains all models from scratch
+  3. Analyzes your custom files (recursively finds ALL .tf files)
+  4. Generates comprehensive reports
+
+═══════════════════════════════════════════════════════════════════
+ METHOD 2: MANUAL STEP-BY-STEP 📝
+═══════════════════════════════════════════════════════════════════
+
+Step 1: Clean Old Training Data
+────────────────────────────────
+cd /home/shibly/PycharmProjects/iac-anomaly-detection_v.1
+rm -rf data/output/*
+
+Step 2: Train Models from Scratch
+──────────────────────────────────
+python main.py
+
+Expected output:
+  ✓ Feature extraction completed successfully
+  ✓ Model training completed successfully
+  ✓ Visualization generation completed successfully
+
+Step 3: Verify Models Exist
+────────────────────────────
+ls -lh data/output/models/
+
+You should see:
+  - isolation_forest_model.pkl
+  - one_class_svm_model.pkl
+  - autoencoder_model.pkl
+  - local_outlier_factor_model.pkl
+
+Step 4: Analyze Custom Folder (with Multiple Subdirectories)
+─────────────────────────────────────────────────────────────
+python analyze_custom_tf.py --input /path/to/your/terraform/
+
+Examples:
+  # Basic analysis
+  python analyze_custom_tf.py --input ~/my-terraform-projects/
+
+  # With verbose output
+  python analyze_custom_tf.py --input ~/my-terraform-projects/ --verbose
+
+  # Custom output location
+  python analyze_custom_tf.py --input ~/terraform/ --output ./my-results/
+
+Step 5: View Results
+────────────────────
+# View summary
+cat data/output/custom_analysis/analysis_summary.json | python -m json.tool
+
+# View report
+cat data/output/custom_analysis/analysis_report.md
+
+# Open CSV in spreadsheet
+xdg-open data/output/custom_analysis/analysis_results.csv
+
+═══════════════════════════════════════════════════════════════════
+ ADVANCED: WITH LLM EXPLANATIONS 🤖
+═══════════════════════════════════════════════════════════════════
+
+Step 1: Start Ollama (in separate terminal)
+────────────────────────────────────────────
+ollama serve
+
+Step 2: Verify Model
+─────────────────────
+ollama list
+
+If deepseek-r1:1.5b not listed:
+ollama pull deepseek-r1:1.5b
+
+Step 3: Run Analysis with Explanations
+───────────────────────────────────────
+python analyze_custom_tf.py \
+    --input /path/to/your/terraform/ \
+    --explain \
+    --llm-model deepseek-r1:1.5b \
+    --output ./detailed-analysis/ \
+    --verbose
+
+Step 4: View LLM Explanations
+──────────────────────────────
+xdg-open ./detailed-analysis/explanations/anomaly_report.html
+
+═══════════════════════════════════════════════════════════════════
+ EXAMPLE DIRECTORY STRUCTURE 📂
+═══════════════════════════════════════════════════════════════════
+
+Your Terraform folder can have ANY structure with nested subdirectories:
+
+/my-terraform-projects/
+├── production/
+│   ├── networking/
+│   │   ├── vpc.tf
+│   │   └── subnets.tf
+│   ├── storage/
+│   │   ├── s3-main.tf
+│   │   ├── s3-backup.tf
+│   │   └── s3-logs.tf
+│   └── compute/
+│       └── ec2.tf
+├── staging/
+│   ├── s3-staging.tf
+│   └── vpc-staging.tf
+└── development/
+    ├── dev-resources/
+    │   └── s3-dev.tf
+    └── test-buckets.tf
+
+Command:
+    python analyze_custom_tf.py --input /my-terraform-projects/
+
+Result:
+    ✓ Finds ALL 10 .tf files recursively
+    ✓ Analyzes all S3 bucket configurations
+    ✓ Detects anomalies using trained models
+    ✓ Generates comprehensive report
+
+═══════════════════════════════════════════════════════════════════
+ QUICK REFERENCE COMMANDS 🚀
+═══════════════════════════════════════════════════════════════════
+
+Clean and retrain:
+    rm -rf data/output/* && python main.py
+
+Analyze custom files (simple):
+    python analyze_custom_tf.py --input /path/to/terraform/
+
+Analyze with all features:
+    python analyze_custom_tf.py --input /path/ --explain --verbose
+
+Use automated workflow:
+    ./run_complete_workflow.sh /path/to/terraform/
+
+═══════════════════════════════════════════════════════════════════
+ OUTPUT FILES 📊
+═══════════════════════════════════════════════════════════════════
+
+After analysis, you'll find:
+
+data/output/custom_analysis/
+├── analysis_results.csv       # Detailed results (all configs)
+├── analysis_summary.json      # Summary statistics
+├── analysis_report.md         # Human-readable report
+└── explanations/              # LLM explanations (if --explain)
+    ├── anomaly_report.md
+    └── anomaly_report.html
+
+═══════════════════════════════════════════════════════════════════
+ TROUBLESHOOTING 🔧
+═══════════════════════════════════════════════════════════════════
+
+"Failed to load models"
+→ Solution: python main.py
+
+"No S3 bucket configurations found"
+→ Check: find /path/to/terraform -name "*.tf"
+→ Verify files contain: grep -r "aws_s3_bucket" /path/
+
+"Cannot connect to Ollama"
+→ Start: ollama serve
+→ Check: ollama list
+→ Pull: ollama pull deepseek-r1:1.5b
+
+═══════════════════════════════════════════════════════════════════
+ DOCUMENTATION 📚
+═══════════════════════════════════════════════════════════════════
+
+README_CUSTOM_ANALYSIS.md     - Quick commands reference
+COMPLETE_WORKFLOW.md           - Detailed step-by-step guide
+CUSTOM_ANALYSIS_GUIDE.md       - Complete usage documentation
+BATCH_ANALYSIS.md              - Batch processing reference
+QUICKSTART.md                  - Getting started guide
+
+═══════════════════════════════════════════════════════════════════
+
+✅ READY TO USE!
+
+Start with:
+    ./run_complete_workflow.sh /path/to/your/terraform/folder/
+
+═══════════════════════════════════════════════════════════════════

@@ -1,0 +1,14 @@
+{
+  "total_configurations": 1,
+  "anomalies_detected": 0,
+  "anomaly_rate": 0.0,
+  "average_ensemble_score": 0.0,
+  "max_ensemble_score": 0.0,
+  "models_used": [
+    "isolation_forest",
+    "one_class_svm",
+    "autoencoder",
+    "local_outlier_factor"
+  ],
+  "high_risk_configs": []
+}

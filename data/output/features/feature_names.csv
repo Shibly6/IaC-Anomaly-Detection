@@ -1,0 +1,12 @@
+feature_name
+has_any_public_access
+public_access_score
+vulnerability_score
+high_risk_combination
+composite_anomaly_score
+security_features_count
+critical_security_gaps
+public_access_type
+configuration_inconsistency
+extreme_configuration
+security_penalty

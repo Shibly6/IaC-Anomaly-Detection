@@ -1,0 +1,57 @@
+{
+  "total_configurations": 27,
+  "anomalies_detected": 16,
+  "anomaly_rate": 0.5925925925925926,
+  "average_ensemble_score": 0.3720407334432516,
+  "max_ensemble_score": 0.749999999995639,
+  "models_used": [
+    "isolation_forest",
+    "one_class_svm",
+    "autoencoder",
+    "local_outlier_factor"
+  ],
+  "high_risk_configs": [
+    {
+      "bucket_name": "everyone-can-upload-bucket",
+      "source_file": "IaC_script/s3_public_acl_extra_new_4.tf",
+      "ensemble_score": 0.749999999995639,
+      "is_public_acl": 1,
+      "has_public_policy": 0
+    },
+    {
+      "bucket_name": "public-data-unrestricted-bucket",
+      "source_file": "IaC_script/s3_public_acl_extra_new_1.tf",
+      "ensemble_score": 0.749999999995639,
+      "is_public_acl": 1,
+      "has_public_policy": 0
+    },
+    {
+      "bucket_name": "open-bucket-example-new",
+      "source_file": "IaC_script/s3_public_acl_new_4.tf",
+      "ensemble_score": 0.749999999995639,
+      "is_public_acl": 1,
+      "has_public_policy": 0
+    },
+    {
+      "bucket_name": "unprotected-data-lake-bucket",
+      "source_file": "IaC_script/s3_public_acl_extra_new_6.tf",
+      "ensemble_score": 0.749999999995639,
+      "is_public_acl": 1,
+      "has_public_policy": 0
+    },
+    {
+      "bucket_name": "public-read-write-bucket",
+      "source_file": "IaC_script/s3_public_read_write.tf",
+      "ensemble_score": 0.749999999995639,
+      "is_public_acl": 1,
+      "has_public_policy": 0
+    },
+    {
+      "bucket_name": "world-readable-new-bucket",
+      "source_file": "IaC_script/s3_public_acl_new_2.tf",
+      "ensemble_score": 0.749999999995639,
+      "is_public_acl": 1,
+      "has_public_policy": 0
+    }
+  ]
+}
